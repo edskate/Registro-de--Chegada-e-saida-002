@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Entrada, Saída e Ocorrências</title>
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#f4f4f9;
+  color:#333;
+}
+
+header{
+  background:#4b6cb7;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+main{
+  max-width:960px;
+  margin:20px auto;
+  padding:20px;
+  background:white;
+  border-radius:8px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.form-row{
+  margin-bottom:16px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+
+input, textarea, select, button{
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:16px;
+  box-sizing:border-box;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  margin-top:8px;
+  color:white;
+  font-weight:bold;
+}
+
+#entrada{
+  background:#3fbf7f;
+}
+
+#saida{
+  background:#f25f5c;
+}
+
+#limpar{
+  background:#333;
+}
+
+#print{
+  background:#4b6cb7;
+}
+
+.status{
+  font-size:18px;
+  margin-bottom:16px;
+  padding:14px;
+  border-radius:6px;
+  background:#eef2ff;
+}
+
+.relogio{
+  margin-top:12px;
+  font-size:16px;
+  color:#f0f7ff;
+}
+
+.history{
+  margin-top:24px;
+}
+
+.entry-list{
+  list-style:none;
+  padding:0;
+}
+
+.entry-list li{
+  padding:14px;
+  border-bottom:1px solid #ddd;
+  background:#fafafa;
+  margin-bottom:10px;
+  border-radius:8px;
+}
+
+.entry-type{
+  font-weight:bold;
+  color:#222;
+}
+
+.entry-time{
+  color:#666;
+  font-size:14px;
+  margin-top:6px;
+}
+
+.categoria{
+  color:#4b6cb7;
+  font-weight:bold;
+  margin-top:6px;
+}
+
+.ocorrencia{
+  margin-top:6px;
+}
+
+@media print{
+  button, input, textarea, select, label, .form-row{
+    display:none;
+  }
+
+  body{
+    background:white;
+  }
+
+  main{
+    box-shadow:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Controle de Entrada, Saída e Ocorrências</h1>
+  <p>Registre presença, saída e tudo que aconteceu no trabalho.</p>
+  <div id="relogio" class="relogio">Horário atual: <span id="clock">00:00:00</span> | Mês atual: <span id="month">Maio</span></div>
+</header>
+
+<main>
+
+  <div class="status">
+    <strong>Dentro agora:</strong> <span id="count">0</span>
+  </div>
+
+  <div class="form-row">
+    <label for="name">Nome:</label>
+    <input id="name" type="text" placeholder="Digite o nome">
+  </div>
+
+  <div class="form-row">
+    <label for="categoria">Categoria do Ocorrido:</label>
+    <select id="categoria">
+      <option value="Presença">Presença</option>
+      <option value="Pontualidade">Pontualidade</option>
+      <option value="Figurino">Figurino</option>
+      <option value="Coreografia">Coreografia</option>
+      <option value="Comunicação">Comunicação</option>
+      <option value="Organização">Organização</option>
+      <option value="Equipamento">Equipamento</option>
+      <option value="Palco">Palco</option>
+      <option value="Advertência">Advertência</option>
+      <option value="Elogio">Elogio</option>
+      <option value="Outro">Outro</option>
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label for="ocorrencia">Descrição do Ocorrido no Trabalho:</label>
+    <textarea id="ocorrencia" placeholder="Ex: Chegou atrasado, esqueceu acessório, ajudou na organização, houve falha de comunicação, figurino incompleto..."></textarea>
+  </div>
+
+  <button id="entrada">Registrar Entrada</button>
+  <button id="saida">Registrar Saída</button>
+  <button id="print" onclick="window.print()">Salvar / Imprimir PDF</button>
+  <button id="limpar" onclick="limparHistorico()">Limpar Histórico</button>
+
+  <section class="history">
+    <h2>Histórico de Registros</h2>
+    <ul id="entryList" class="entry-list"></ul>
+  </section>
+
+</main>
+
+<script>
+const nameInput = document.getElementById('name');
+const categoriaInput = document.getElementById('categoria');
+const ocorrenciaInput = document.getElementById('ocorrencia');
+const countElement = document.getElementById('count');
+const entryList = document.getElementById('entryList');
+const entradaButton = document.getElementById('entrada');
+const saidaButton = document.getElementById('saida');
+
+const STORAGE_KEY = 'controleEntradaSaidaOcorrenciasEdy';
+
+function carregarDados(){
+  const data = localStorage.getItem(STORAGE_KEY);
+  return data ? JSON.parse(data) : { registros: [], count: 0 };
+}
+
+function salvarDados(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function formatarData(data){
+  return new Date(data).toLocaleString('pt-BR', {
+    dateStyle:'short',
+    timeStyle:'short'
+  });
+}
+
+function atualizarRelogio(){
+  const agora = new Date();
+  const mostra = agora.toLocaleString('pt-BR', {
+    dateStyle:'full',
+    timeStyle:'medium'
+  });
+  const mes = agora.toLocaleString('pt-BR', { month:'long' });
+  document.getElementById('clock').textContent = mostra;
+  document.getElementById('month').textContent = mes.charAt(0).toUpperCase() + mes.slice(1);
+}
+
+setInterval(atualizarRelogio, 1000);
+atualizarRelogio();
+
+function atualizarInterface(){
+  const data = carregarDados();
+  countElement.textContent = data.count;
+  entryList.innerHTML = '';
+
+  if(data.registros.length === 0){
+    entryList.innerHTML = '<li>Nenhum registro ainda.</li>';
+    return;
+  }
+
+  data.registros.slice().reverse().forEach(registro => {
+    const item = document.createElement('li');
+
+    item.innerHTML = `
+      <div class="entry-type">${registro.tipo} - ${registro.nome}</div>
+      <div class="categoria">Categoria: ${registro.categoria}</div>
+      <div class="ocorrencia"><strong>Ocorrido:</strong> ${registro.ocorrencia}</div>
+      <div class="entry-time">Data e hora: ${formatarData(registro.data)}</div>
+    `;
+
+    entryList.appendChild(item);
+  });
+}
+
+function registrar(tipo){
+  const nome = nameInput.value.trim();
+  const categoria = categoriaInput.value;
+  const ocorrencia = ocorrenciaInput.value.trim() || 'Nenhuma descrição registrada.';
+
+  if(!nome){
+    alert('Informe um nome para registrar.');
+    nameInput.focus();
+    return;
+  }
+
+  const data = carregarDados();
+
+  const novoRegistro = {
+    nome:nome,
+    tipo: tipo === 'entrada' ? 'Entrada' : 'Saída',
+    categoria:categoria,
+    ocorrencia:ocorrencia,
+    data:new Date().toISOString()
+  };
+
+  if(tipo === 'entrada'){
+    data.count += 1;
+  }else{
+    data.count = Math.max(0, data.count - 1);
+  }
+
+  data.registros.push(novoRegistro);
+  salvarDados(data);
+  atualizarInterface();
+
+  nameInput.value = '';
+  ocorrenciaInput.value = '';
+  categoriaInput.value = 'Presença';
+  nameInput.focus();
+}
+
+function limparHistorico(){
+  if(confirm('Tem certeza que deseja apagar todo o histórico?')){
+    localStorage.removeItem(STORAGE_KEY);
+    atualizarInterface();
+  }
+}
+
+entradaButton.addEventListener('click', () => registrar('entrada'));
+saidaButton.addEventListener('click', () => registrar('saida'));
+
+atualizarInterface();
+</script>
+
+</body>
+</html>
