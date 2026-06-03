@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda Junho 2026 - Histórico de Presentes</title>
+
+<style>
+body{font-family:Arial,sans-serif;background:#f2f2f2;color:#000;margin:8px}
+h1{background:#d9d9d9;text-align:center;margin:0;padding:12px;border:1px solid #000}
+h2{text-align:center;background:#0066ff;color:#fff;padding:10px;margin-top:25px;border-radius:8px}
+#relogio{text-align:center;font-size:18px;font-weight:bold;margin:10px;color:#0066ff}
+.resumo{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0}
+.card{background:white;border:1px solid #000;border-radius:8px;padding:10px 16px;font-weight:bold}
+table{width:100%;border-collapse:collapse;background:white;margin-top:10px}
+th,td{border:1px solid #000;padding:6px;text-align:center;vertical-align:top}
+th{background:#d9d9d9;font-weight:bold}
+td:nth-child(3){font-size:16px;font-weight:bold}
+.realizado{background:#0066ff!important;color:#fff!important;font-weight:bold;text-decoration:line-through}
+.hoje{background:#00ff00!important;color:#000!important;font-weight:bold;animation:piscar 1s infinite}
+.amanha{background:#ffff00!important;color:#000!important;font-weight:bold}
+.agendado{background:#fff;color:#000}
+.status{font-weight:bold;text-decoration:none!important}
+.presenca{min-width:240px;text-decoration:none!important}
+.presenca label{display:inline-block;background:#eef3ff;border:1px solid #999;border-radius:5px;margin:2px;padding:4px;font-size:12px;color:#000;text-decoration:none!important}
+.presenca textarea{width:95%;height:45px;margin-top:5px;border:1px solid #777;border-radius:5px;padding:5px}
+@keyframes piscar{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+.legenda{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.legenda span{padding:8px 14px;border:1px solid #000;font-weight:bold}
+.botoes{text-align:center;margin:15px 0}
+button{background:#0066ff;color:white;border:none;padding:10px 14px;margin:5px;border-radius:6px;font-weight:bold;cursor:pointer}
+button:hover{background:#004fc4}
+.btnPequeno{padding:6px 8px;font-size:12px;background:#008000}
+#historicoTabela th,#rankingTabela th{background:#0066ff;color:white}
+#historicoTabela td,#rankingTabela td{background:#eaf1ff;font-weight:bold;text-decoration:none!important}
+.vazio{text-align:center;padding:12px;font-weight:bold;color:#555}
+.aviso{text-align:center;color:#0066ff;font-weight:bold;margin:8px}
+@media print{#relogio,.botoes,.btnPequeno{display:none} body{background:white} h2{background:#ddd;color:#000} .presenca label{border:none} textarea{border:none}}
+</style>
+</head>
+
+<body>
+
+<h1>AGENDA JUNHO 2026 - PRESENÇA DOS DANÇARINOS</h1>
+
+<div id="relogio"></div>
+<div class="aviso">💾 Os presentes e observações ficam salvos no histórico abaixo da página.</div>
+
+<div class="resumo">
+  <div class="card">🔵 Realizados: <span id="totalRealizados">0</span></div>
+  <div class="card">⚪ Agendados: <span id="totalAgendados">0</span></div>
+  <div class="card">📅 Total da agenda: <span id="totalAgenda">0</span></div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>DATA</th>
+<th>DIA</th>
+<th>ATRAÇÃO</th>
+<th>POCKET SHOW</th>
+<th>OBSERVAÇÃO DO EVENTO</th>
+<th>DANÇARINOS PRESENTES + OBSERVAÇÃO</th>
+<th>STATUS</th>
+<th>SALVAR</th>
+</tr>
+</thead>
+<tbody>
+
+<tr data-date="2026-06-01">
+  <td>01/06/2026</td>
+  <td>SEGUNDA</td>
+  <td>FREDDIE-VERSO - Tributo Freddie Mercury com Krony e Banda</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-02">
+  <td>02/06/2026</td>
+  <td>TERÇA</td>
+  <td>TRIBUTO DIVAS DA MUSICA</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-03">
+  <td>03/06/2026</td>
+  <td>QUARTA</td>
+  <td>NOITE DOS BEATLES - Tributo com Star Beatles</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-04">
+  <td>04/06/2026</td>
+  <td>QUINTA</td>
+  <td>NOITE DO ELVIS - Tributo com Johnny Grace</td>
+  <td>Pocket Divas | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-05">
+  <td>05/06/2026</td>
+  <td>SEXTA</td>
+  <td>ESPECIAL MICHAEL JACKSON TRIBUTO + THE CLASSIC ROCKERS</td>
+  <td></td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-06">
+  <td>06/06/2026</td>
+  <td>SÁBADO</td>
+  <td>The CLASSIC ROCKERS Show - Clássicos do Rock</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td>Guitarríssima evento escola de música 17h às 18h30</td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-07">
+  <td>07/06/2026</td>
+  <td>DOMINGO</td>
+  <td></td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-08">
+  <td>08/06/2026</td>
+  <td>SEGUNDA</td>
+  <td>FREDDIE-VERSO - Tributo Freddie Mercury com Krony e Banda</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-09">
+  <td>09/06/2026</td>
+  <td>TERÇA</td>
+  <td>TRIBUTO DIVAS DA MUSICA</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-10">
+  <td>10/06/2026</td>
+  <td>QUARTA</td>
+  <td>NOITE DOS BEATLES - Tributo com Star Beatles</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-11">
+  <td>11/06/2026</td>
+  <td>QUINTA</td>
+  <td>NOITE DO ELVIS - Tributo com Johnny Grace</td>
+  <td>Pocket Divas | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-12">
+  <td>12/06/2026</td>
+  <td>SEXTA</td>
+  <td>DIA DOS NAMORADOS - THE CLASSIC ROCKERS LOVE SONGS + POCKET TRIBUTO FREDDIE MERCURY</td>
+  <td></td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-13">
+  <td>13/06/2026</td>
+  <td>SÁBADO</td>
+  <td>ESPECIAL MICHAEL JACKSON TRIBUTO + FREDDIE MERCURY</td>
+  <td></td>
+  <td>JOGO 19H</td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-14">
+  <td>14/06/2026</td>
+  <td>DOMINGO</td>
+  <td>ESPECIAL ELTON JOHN - TRIBUTO com 70's Show</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-15">
+  <td>15/06/2026</td>
+  <td>SEGUNDA</td>
+  <td>FREDDIE-VERSO - Tributo Freddie Mercury com Krony e Banda</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-16">
+  <td>16/06/2026</td>
+  <td>TERÇA</td>
+  <td>TRIBUTO DIVAS DA MUSICA</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-17">
+  <td>17/06/2026</td>
+  <td>QUARTA</td>
+  <td>NOITE DOS BEATLES - Tributo com Star Beatles</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-18">
+  <td>18/06/2026</td>
+  <td>QUINTA</td>
+  <td>NOITE DO ELVIS - Tributo com Johnny Grace</td>
+  <td>Pocket Divas | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-19">
+  <td>19/06/2026</td>
+  <td>SEXTA</td>
+  <td>ESPECIAL MICHAEL JACKSON TRIBUTO</td>
+  <td></td>
+  <td>JOGO 21H30</td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-20">
+  <td>20/06/2026</td>
+  <td>SÁBADO</td>
+  <td>The CLASSIC ROCKERS Show - Clássicos do Rock</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-21">
+  <td>21/06/2026</td>
+  <td>DOMINGO</td>
+  <td>ESPECIAL ELTON JOHN - TRIBUTO com 70's Show</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-22">
+  <td>22/06/2026</td>
+  <td>SEGUNDA</td>
+  <td>FREDDIE-VERSO - Tributo Freddie Mercury com Krony e Banda</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-23">
+  <td>23/06/2026</td>
+  <td>TERÇA</td>
+  <td>TRIBUTO DIVAS DA MUSICA</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-24">
+  <td>24/06/2026</td>
+  <td>QUARTA</td>
+  <td>NOITE DOS BEATLES - Tributo com Star Beatles</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td>JOGO 19H</td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-25">
+  <td>25/06/2026</td>
+  <td>QUINTA</td>
+  <td>NOITE DO ELVIS - Tributo com Johnny Grace</td>
+  <td>Pocket Divas | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-26">
+  <td>26/06/2026</td>
+  <td>SEXTA</td>
+  <td>ESPECIAL MICHAEL JACKSON TRIBUTO + THE CLASSIC ROCKERS</td>
+  <td></td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-27">
+  <td>27/06/2026</td>
+  <td>SÁBADO</td>
+  <td>The CLASSIC ROCKERS Show - Clássicos do Rock</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-28">
+  <td>28/06/2026</td>
+  <td>DOMINGO</td>
+  <td>ESPECIAL ELTON JOHN - TRIBUTO com 70's Show</td>
+  <td>Freddie Mercury | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-29">
+  <td>29/06/2026</td>
+  <td>SEGUNDA</td>
+  <td>FREDDIE-VERSO - Tributo Freddie Mercury com Krony e Banda</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+
+<tr data-date="2026-06-30">
+  <td>30/06/2026</td>
+  <td>TERÇA</td>
+  <td>TRIBUTO DIVAS DA MUSICA</td>
+  <td>Michael Jackson | Tributo</td>
+  <td></td>
+  <td class="presenca">
+    <label><input type="checkbox" data-dancer="Renan" onchange="salvarTudo()"> Renan</label><label><input type="checkbox" data-dancer="Abizael" onchange="salvarTudo()"> Abizael</label><label><input type="checkbox" data-dancer="Patrick" onchange="salvarTudo()"> Patrick</label><label><input type="checkbox" data-dancer="Jhonny Mendes" onchange="salvarTudo()"> Jhonny Mendes</label><label><input type="checkbox" data-dancer="João" onchange="salvarTudo()"> João</label><label><input type="checkbox" data-dancer="Murilo" onchange="salvarTudo()"> Murilo</label>
+    <br>
+    <textarea placeholder="Observação: atraso, falta, substituição..." oninput="salvarTudo()"></textarea>
+  </td>
+  <td class="status"></td>
+  <td><button class="btnPequeno" onclick="salvarLinhaNoHistorico(this)">💾 Salvar</button></td>
+</tr>
+</tbody>
+</table>
+
+<div class="legenda">
+  <span style="background:#0066ff;color:white;">🔵 Realizado</span>
+  <span style="background:#00ff00;color:black;">🟢 Hoje</span>
+  <span style="background:#ffff00;color:black;">🟡 Falta 1 Dia</span>
+  <span style="background:#ffffff;color:black;">⚪ Agendado</span>
+</div>
+
+<div class="botoes">
+  <button onclick="salvarTudo()">💾 Salvar Tudo</button>
+  <button onclick="window.print()">🖨️ Imprimir / Salvar em PDF</button>
+  <button onclick="limparPresencas()">🗑️ Limpar Presenças</button>
+  <button onclick="limparHistorico()">🗑️ Limpar Histórico</button>
+</div>
+
+<h2>📊 RANKING DE PRESENÇA DOS DANÇARINOS</h2>
+<table id="rankingTabela">
+<thead><tr><th>DANÇARINO</th><th>SHOWS PRESENTES</th></tr></thead>
+<tbody></tbody>
+</table>
+
+<h2>📁 HISTÓRICO SALVO DE PRESENTES E OBSERVAÇÕES</h2>
+<table id="historicoTabela">
+<thead>
+<tr>
+<th>DATA</th>
+<th>DIA</th>
+<th>ATRAÇÃO</th>
+<th>POCKET SHOW</th>
+<th>OBSERVAÇÃO DO EVENTO</th>
+<th>DANÇARINOS PRESENTES</th>
+<th>OBSERVAÇÃO DA PRESENÇA</th>
+<th>STATUS</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+const chavePresenca = "presencaAgendaJunho2026Completa";
+const chaveHistorico = "historicoPresentesObservacaoJunho2026";
+const dancarinosPadrao = ['Renan', 'Abizael', 'Patrick', 'Jhonny Mendes', 'João', 'Murilo'];
+
+function pegarDadosLinha(tr){
+  const presentes = Array.from(tr.querySelectorAll('input[type="checkbox"]:checked')).map(c=>c.dataset.dancer);
+  const anotacao = tr.querySelector("textarea").value.trim();
+
+  return {
+    id: tr.dataset.date,
+    data: tr.cells[0].innerText,
+    dia: tr.cells[1].innerText,
+    atracao: tr.cells[2].innerText,
+    pocket: tr.cells[3].innerText,
+    observacaoEvento: tr.cells[4].innerText,
+    presentes: presentes,
+    anotacao: anotacao,
+    status: tr.querySelector(".status").innerText || "⚪ AGENDADO"
+  };
+}
+
+function salvarTudo(){
+  const presencas = {};
+  const historico = JSON.parse(localStorage.getItem(chaveHistorico)) || [];
+
+  document.querySelectorAll("tbody tr[data-date]").forEach(tr=>{
+    const dados = pegarDadosLinha(tr);
+    presencas[dados.id] = dados;
+
+    const temRegistro = dados.presentes.length > 0 || dados.anotacao !== "" || tr.classList.contains("realizado");
+
+    if(temRegistro){
+      const index = historico.findIndex(item => item.id === dados.id);
+      if(index >= 0){
+        historico[index] = dados;
+      } else {
+        historico.push(dados);
+      }
+    }
+  });
+
+  localStorage.setItem(chavePresenca, JSON.stringify(presencas));
+  localStorage.setItem(chaveHistorico, JSON.stringify(historico));
+
+  carregarHistorico();
+  atualizarRanking();
+}
+
+function salvarLinhaNoHistorico(botao){
+  const tr = botao.closest("tr");
+  const dados = pegarDadosLinha(tr);
+
+  let presencas = JSON.parse(localStorage.getItem(chavePresenca)) || {};
+  presencas[dados.id] = dados;
+  localStorage.setItem(chavePresenca, JSON.stringify(presencas));
+
+  let historico = JSON.parse(localStorage.getItem(chaveHistorico)) || [];
+  const index = historico.findIndex(item => item.id === dados.id);
+
+  if(index >= 0){
+    historico[index] = dados;
+  } else {
+    historico.push(dados);
+  }
+
+  localStorage.setItem(chaveHistorico, JSON.stringify(historico));
+  carregarHistorico();
+  atualizarRanking();
+  alert("Histórico de presentes e observação salvo.");
+}
+
+function carregarPresencas(){
+  const presencas = JSON.parse(localStorage.getItem(chavePresenca)) || {};
+
+  document.querySelectorAll("tbody tr[data-date]").forEach(tr=>{
+    const item = presencas[tr.dataset.date];
+    if(!item) return;
+
+    tr.querySelectorAll('input[type="checkbox"]').forEach(c=>{
+      c.checked = item.presentes && item.presentes.includes(c.dataset.dancer);
+    });
+
+    tr.querySelector("textarea").value = item.anotacao || "";
+  });
+}
+
+function atualizarAgenda(){
+  const agora = new Date();
+
+  document.getElementById("relogio").innerHTML =
+    "⏰ " + agora.toLocaleDateString("pt-BR") +
+    " - " + agora.toLocaleTimeString("pt-BR");
+
+  const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+
+  let totalRealizados = 0;
+  let totalAgendados = 0;
+  let totalAgenda = 0;
+
+  document.querySelectorAll("tbody tr[data-date]").forEach(tr=>{
+    totalAgenda++;
+
+    const dataShow = new Date(tr.dataset.date + "T00:00:00");
+    const diff = Math.round((dataShow - hoje) / 86400000);
+    const status = tr.querySelector(".status");
+
+    tr.classList.remove("realizado","hoje","amanha","agendado");
+
+    if(diff < 0){
+      tr.classList.add("realizado");
+      status.innerHTML = "🔵 REALIZADO";
+      totalRealizados++;
+    }
+    else if(diff === 0){
+      tr.classList.add("hoje");
+      status.innerHTML = "🟢 HOJE TEM SHOW";
+      totalAgendados++;
+    }
+    else if(diff === 1){
+      tr.classList.add("amanha");
+      status.innerHTML = "🟡 FALTA 1 DIA";
+      totalAgendados++;
+    }
+    else{
+      tr.classList.add("agendado");
+      status.innerHTML = "⚪ AGENDADO";
+      totalAgendados++;
+    }
+  });
+
+  document.getElementById("totalRealizados").innerText = totalRealizados;
+  document.getElementById("totalAgendados").innerText = totalAgendados;
+  document.getElementById("totalAgenda").innerText = totalAgenda;
+
+  salvarTudo();
+}
+
+function carregarHistorico(){
+  const historico = JSON.parse(localStorage.getItem(chaveHistorico)) || [];
+  const tabela = document.querySelector("#historicoTabela tbody");
+
+  tabela.innerHTML = "";
+
+  if(historico.length === 0){
+    tabela.innerHTML = '<tr><td colspan="8" class="vazio">Nenhum histórico salvo ainda.</td></tr>';
+    return;
+  }
+
+  historico.sort((a,b)=>a.id.localeCompare(b.id));
+
+  historico.forEach(item=>{
+    tabela.innerHTML += `
+      <tr>
+        <td>${item.data}</td>
+        <td>${item.dia}</td>
+        <td>${item.atracao}</td>
+        <td>${item.pocket}</td>
+        <td>${item.observacaoEvento}</td>
+        <td>${(item.presentes || []).join(", ") || "Sem presentes registrados"}</td>
+        <td>${item.anotacao || "Sem observação"}</td>
+        <td>${item.status || "⚪ AGENDADO"}</td>
+      </tr>
+    `;
+  });
+}
+
+function atualizarRanking(){
+  const ranking = {};
+  dancarinosPadrao.forEach(nome=>ranking[nome]=0);
+
+  const historico = JSON.parse(localStorage.getItem(chaveHistorico)) || [];
+
+  historico.forEach(item=>{
+    (item.presentes || []).forEach(nome=>{
+      ranking[nome] = (ranking[nome] || 0) + 1;
+    });
+  });
+
+  const corpo = document.querySelector("#rankingTabela tbody");
+  corpo.innerHTML = "";
+
+  Object.entries(ranking).sort((a,b)=>b[1]-a[1]).forEach(([nome,total])=>{
+    corpo.innerHTML += `<tr><td>${nome}</td><td>${total}</td></tr>`;
+  });
+}
+
+function limparPresencas(){
+  if(confirm("Deseja limpar as presenças marcadas na agenda?")){
+    localStorage.removeItem(chavePresenca);
+    document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
+    document.querySelectorAll('textarea').forEach(t=>t.value="");
+    salvarTudo();
+    alert("Presenças limpas.");
+  }
+}
+
+function limparHistorico(){
+  if(confirm("Deseja apagar o histórico salvo de presentes e observações?")){
+    localStorage.removeItem(chaveHistorico);
+    carregarHistorico();
+    atualizarRanking();
+    alert("Histórico apagado.");
+  }
+}
+
+carregarPresencas();
+atualizarAgenda();
+setInterval(atualizarAgenda, 1000);
+</script>
+
+</body>
+</html>
